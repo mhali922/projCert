@@ -1,0 +1,18 @@
+pipeline{
+    agent any
+    stages{
+        stage('SCM checkout')
+        {
+          
+            steps{
+                git branch: 'master', url: 'https://github.com/mhali922/projCert'
+            }
+        }
+        stage('Ansible playbook')
+        {
+            steps{
+                ansiblePlaybook credentialsId: 'private-key1', disableHostKeyChecking: true, installation: 'projectcert', inventory: 'dev.inv', playbook: 'playbook2.yml'
+            }
+        }
+    }
+}
