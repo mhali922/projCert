@@ -1,0 +1,18 @@
+
+- hosts: webserver
+  become: true
+  become_user: root
+  tasks:
+  - name: Install Git and Docker
+    yum: name={{item}} state=present
+    with_items:
+    - docker
+    - git
+  - name: Start Docker
+    service: name=docker state=started
+  - name: clone git repo
+    git: repo=https://github.com/mhali922/projCert.git dest=/tmp/gitrepo2
+  - name: build dockerfile
+    command: chdir=/tmp/gitrepo2 docker build -t myimage:projectcert .
+  - name: Run the image to deploy the application build from above build task
+    command: docker run -itd -P myimage:projectcert
