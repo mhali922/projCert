@@ -11,7 +11,7 @@ pipeline{
         stage('Ansible playbook')
         {
             steps{
-                ansiblePlaybook credentialsId: 'private-key1', disableHostKeyChecking: true, installation: 'projectcert', inventory: 'dev.inv', playbook: 'playbook2.yml'
+                ansiblePlaybook credentialsId: 'mb777', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.inv', playbook: 'playbook2.yml'
             }
         }
     }
